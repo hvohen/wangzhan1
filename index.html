@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心之絮语 | 爱的永恒之旅</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            font-family: 'Microsoft YaHei', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+            animation: float 8s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-20vh) rotate(360deg); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+        }
+
+        .title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .poem {
+            font-size: 1.2rem;
+            line-height: 2;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .love-letter {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .interactive-heart {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-heart:hover {
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg" id="heartContainer"></div>
+    
+    <div class="container">
+        <div class="content">
+            <h1 class="title">永恒恋曲</h1>
+            
+            <div class="love-letter">
+                <p class="poem">
+                    在星辰的褶皱里，我找寻你的眼眸<br>
+                    时光的沙漏沉淀着我们的秘密<br>
+                    每个清晨都是未完待续的情书<br>
+                    我们的影子在月光下跳着永恒的华尔兹
+                </p >
+            </div>
+
+            <svg class="interactive-heart" viewBox="0 0 32 29.6" onclick="animateHeart(this)">
+                <path d="M23.6 0c-3.4 0-6.3 2.7-7.6 5.6-1.3-2.9-4.2-5.6-7.6-5.6C3.3 0 0 3.3 0 7.6c0 6.4 10.9 15.4 16 21.7 5.1-6.3 16-15.3 16-21.7 0-4.3-3.3-7.6-7.6-7.6z" 
+                      fill="#fff"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // 创建浮动心形背景
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // 互动心形动画
+        function animateHeart(heart) {
+            heart.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                heart.style.transform = 'scale(1)';
+            }, 300);
+            
+            // 添加绽放效果
+            const burst = document.createElement('div');
+            burst.style.position = 'absolute';
+            burst.style.left = heart.offsetLeft + 'px';
+            burst.style.top = heart.offsetTop + 'px';
+            burst.style.fontSize = '24px';
+            burst.style.animation = 'fadeOut 1s forwards';
+            burst.innerHTML = '❤';
+            document.body.appendChild(burst);
+            
+            setTimeout(() => burst.remove(), 1000);
+        }
+
+        window.onload = createHearts;
+    </script>
+</body>
+</html>
